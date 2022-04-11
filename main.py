@@ -1,3 +1,4 @@
+from distutils.log import debug
 from flask import Flask , request
 import pickle
 import pandas as pd
@@ -31,6 +32,10 @@ Telanganap = pickle.load(open('Telangana.pkl', 'rb'))
 Tripurap = pickle.load(open('Tripura.pkl', 'rb'))
 Upp = pickle.load(open('UP.pkl', 'rb'))
 Uttrakhandp = pickle.load(open('Uttrakhand.pkl', 'rb'))
+Himachalp = pickle.load(open('Himachal.pkl', 'rb'))
+Jammup = pickle.load(open('Jammu.pkl', 'rb'))
+
+
 
 
 app = Flask(__name__)
@@ -433,7 +438,37 @@ def Uttrakhand():
         return   str(results) 
 
 
-      
+@app.route("/Himachal", methods=["POST"])
+def Himachal():
+    if request.is_json:
+
+        req = request.get_json()
+        area = req['area']
+        bhk = req['bhk']
+        bathroom = req['bathroom']
+        balcony = req['balcony']
+        parking = req['parking']
+        furnishing = req['furnishing']
+        results = Himachalp.predict([[area,bhk,bathroom,balcony,parking,furnishing]])
+        return   str(results) 
+
+
+@app.route("/Jammu", methods=["POST"])
+def Jammu():
+    if request.is_json:
+
+        req = request.get_json()
+        area = req['area']
+        bhk = req['bhk']
+        bathroom = req['bathroom']
+        balcony = req['balcony']
+        parking = req['parking']
+        furnishing = req['furnishing']
+        results = Jammup.predict([[area,bhk,bathroom,balcony,parking,furnishing]])
+        return   str(results) 
+
 
 if __name__ ==  "__main__":
-    app.run(debug=True)
+
+    app.run()
+   
