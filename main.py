@@ -1,6 +1,7 @@
 from flask import Flask , request
 import pickle
 import pandas as pd
+import sklearn as sd
 
 
 Andhrap = pickle.load(open('Andhra.pkl', 'rb'))
